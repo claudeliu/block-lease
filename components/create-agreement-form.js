@@ -4,7 +4,8 @@ export function CreateAgreementForm({ form, onChange, onSubmit }) {
       <div className="section-heading">
         <h2>Create Agreement</h2>
         <p>
-          Build a new mock escrow agreement for a student lease or sublease.
+          Build a mock blockchain escrow agreement for a student lease or
+          sublease with no backend required.
         </p>
       </div>
       <form onSubmit={onSubmit}>
@@ -94,7 +95,8 @@ export function CreateAgreementForm({ form, onChange, onSubmit }) {
             Add Mock Agreement
           </button>
           <span className="support-text">
-            New entries stay in local demo state only.
+            New entries stay in local demo state only and can be funded,
+            released, or refunded from the detail panel.
           </span>
         </div>
       </form>

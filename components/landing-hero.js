@@ -1,55 +1,56 @@
+import Link from "next/link";
+
 export function LandingHero() {
   return (
     <section className="hero-layout">
       <div className="glass-card hero-card">
         <p className="eyebrow">Classroom demo</p>
         <div className="hero-copy-block">
-          <h1>Secure rental deposit escrow for student housing.</h1>
+          <h1>Secure rental deposit escrow for student rentals and subleases.</h1>
           <p className="hero-description">
-            This demo shows a blockchain-based rental deposit escrow flow where
-            renters send the deposit into escrow instead of paying landlords
-            directly. It is designed for student rentals, short subleases, and
-            international students navigating low-trust rental situations with
-            strangers.
+            This demo shows how renters send a security deposit into escrow
+            instead of paying a landlord or sublessor directly. It is designed
+            for student rentals, campus subleases, and international students
+            dealing with low-trust rental situations.
           </p>
           <p className="hero-description">
-            Deposits are represented with stablecoins in simple terms: the funds
-            stay protected in escrow until the agreement is completed, refunded,
-            or released based on the rental outcome.
+            In simple terms, a stablecoin deposit stays protected in escrow
+            until the rental is completed, refunded, or released. That makes the
+            concept easier to explain in stranger-to-stranger rental scenarios.
           </p>
-        </div>
-        <div className="hero-points">
-          <div className="hero-point">Designed for student rentals and subleases</div>
-          <div className="hero-point">Useful when renter and landlord do not know each other</div>
-          <div className="hero-point">Stablecoin-based protection with no real wallet required here</div>
-          <div className="hero-point">Simple local demo for presentation and walkthroughs</div>
         </div>
         <div className="hero-actions">
-          <a className="primary-button" href="#create-agreement">
+          <Link className="primary-button" href="/demo#create-agreement">
             Create Demo Agreement
-          </a>
-          <a className="secondary-button" href="#dashboard">
-            View Dashboard
-          </a>
+          </Link>
+          <Link className="secondary-button" href="/demo#dashboard">
+            View Sample Dashboard
+          </Link>
         </div>
       </div>
       <aside className="glass-card side-panel">
         <div className="mini-stat">
           <strong>Escrow first</strong>
           <span className="support-text">
-            Renter deposits are held neutrally before landlord release.
+            The renter sends the deposit to escrow first, not directly to the landlord.
           </span>
         </div>
         <div className="mini-stat">
-          <strong>Low-trust friendly</strong>
+          <strong>Student-focused</strong>
           <span className="support-text">
-            Useful for cross-border, short-term, and stranger-to-stranger rentals.
+            Useful for student leases, short subleases, and international arrivals.
           </span>
         </div>
         <div className="mini-stat">
-          <strong>Presentation ready</strong>
+          <strong>Low-trust protection</strong>
           <span className="support-text">
-            Mock wallet and mock smart contract behavior keep the demo easy to run.
+            Helps explain why escrow matters when two parties do not know each other yet.
+          </span>
+        </div>
+        <div className="mini-stat">
+          <strong>Mock product flow</strong>
+          <span className="support-text">
+            Connect a mock wallet, open the workspace, and walk through funding, release, and refund.
           </span>
         </div>
       </aside>

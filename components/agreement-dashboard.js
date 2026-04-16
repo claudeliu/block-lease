@@ -1,13 +1,18 @@
 import { StatusBadge } from "@/components/status-badge";
 
-export function AgreementDashboard({ agreements, onSelect, onQuickView }) {
+export function AgreementDashboard({
+  agreements,
+  onSelect,
+  onQuickView,
+  selectedAgreementId
+}) {
   return (
     <section className="card glass-card" id="dashboard">
       <div className="section-heading">
         <h2>Agreement Dashboard</h2>
         <p>
-          Sample agreements demonstrate the escrow lifecycle from draft to
-          funding, release, and refund.
+          Mock agreements show how a blockchain-based rental deposit escrow can
+          protect student rentals and subleases from draft to deposit outcome.
         </p>
       </div>
       <div className="dashboard-grid">
@@ -15,7 +20,12 @@ export function AgreementDashboard({ agreements, onSelect, onQuickView }) {
           <p className="empty-state">No agreements yet. Create one to begin the demo.</p>
         ) : (
           agreements.map((agreement) => (
-            <article className="agreement-card" key={agreement.id}>
+            <article
+              className={`agreement-card ${
+                agreement.id === selectedAgreementId ? "agreement-card-active" : ""
+              }`}
+              key={agreement.id}
+            >
               <div className="agreement-topline">
                 <StatusBadge status={agreement.status} />
                 <button
@@ -39,7 +49,10 @@ export function AgreementDashboard({ agreements, onSelect, onQuickView }) {
                 <button
                   className="secondary-button"
                   type="button"
-                  onClick={() => onSelect(agreement.id)}
+                  onClick={() => {
+                    onSelect(agreement.id);
+                    onQuickView(null);
+                  }}
                 >
                   Open Details
                 </button>

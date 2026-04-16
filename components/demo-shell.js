@@ -1,11 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import { AgreementDashboard } from "@/components/agreement-dashboard";
-import { AgreementDetailModal } from "@/components/agreement-detail-modal";
+import { AgreementDetailDialog } from "@/components/agreement-detail-dialog";
 import { CreateAgreementForm } from "@/components/create-agreement-form";
-import { EscrowFlow } from "@/components/escrow-flow";
-import { LandingHero } from "@/components/landing-hero";
+import { MockWalletControl, useMockWallet } from "@/components/mock-wallet-control";
 import { StatusBadge } from "@/components/status-badge";
 import { mockAgreements } from "@/data/mock-agreements";
 
@@ -20,11 +20,42 @@ const initialForm = {
   status: "Draft"
 };
 
+const actionConfig = {
+  funded: {
+    label: "Fund Deposit",
+    nextStatus: "Funded",
+    className: "action-fund",
+    helper: "Simulate renter sending the stablecoin deposit into escrow."
+  },
+  release: {
+    label: "Release Deposit",
+    nextStatus: "Completed",
+    className: "action-release",
+    helper: "Simulate escrow releasing funds to the landlord at lease completion."
+  },
+  refund: {
+    label: "Refund Deposit",
+    nextStatus: "Refunded",
+    className: "action-refund",
+    helper: "Simulate escrow returning the deposit to the renter."
+  }
+};
+
 function countByStatus(agreements, targetStatus) {
   return agreements.filter((agreement) => agreement.status === targetStatus).length;
 }
 
+function getActionAvailability(status) {
+  return {
+    funded: status === "Draft" || status === "Awaiting Deposit",
+    release: status === "Funded",
+    refund: status === "Funded" || status === "Awaiting Deposit" || status === "Disputed",
+    reset: true
+  };
+}
+
 export function DemoShell() {
+  const { connected, ready, toggleWallet } = useMockWallet();
   const [agreements, setAgreements] = useState(mockAgreements);
   const [selectedAgreementId, setSelectedAgreementId] = useState(mockAgreements[0]?.id ?? null);
   const [quickViewAgreement, setQuickViewAgreement] = useState(null);
@@ -86,6 +117,10 @@ export function DemoShell() {
     setForm(initialForm);
   }
 
+  const actionAvailability = selectedAgreement
+    ? getActionAvailability(selectedAgreement.status)
+    : getActionAvailability("Draft");
+
   return (
     <main className="page-shell">
       <header className="topbar">
@@ -93,13 +128,35 @@ export function DemoShell() {
           <div className="brand-mark">BL</div>
           <div className="brand-copy">
             <strong>Block Lease</strong>
-            <p>Blockchain rental deposit escrow demo</p>
+            <p>Demo workspace for rental deposit escrow</p>
           </div>
         </div>
-        <div className="topbar-status">Mock wallet connected | Demo mode</div>
+        <div className="workspace-toolbar">
+          <div className="topbar-status">
+            {connected ? "Mock wallet connected | Demo mode" : "Wallet not connected | Demo mode"}
+          </div>
+          <MockWalletControl
+            compact
+            connected={connected}
+            ready={ready}
+            onToggle={toggleWallet}
+          />
+          <Link className="secondary-button secondary-button-compact" href="/">
+            Back to Landing
+          </Link>
+        </div>
       </header>
 
-      <LandingHero />
+      <section className="workspace-intro glass-card">
+        <div className="section-heading">
+          <h2>Demo Workspace</h2>
+          <p>
+            This is the interactive part of the classroom demo. Create a sample
+            agreement, inspect status badges, and walk through the escrow
+            actions with a mock wallet state.
+          </p>
+        </div>
+      </section>
 
       <section className="section-grid">
         <div className="section-stack">
@@ -108,7 +165,6 @@ export function DemoShell() {
             onChange={handleChange}
             onSubmit={handleSubmit}
           />
-          <EscrowFlow />
         </div>
 
         <div className="section-stack">
@@ -116,6 +172,7 @@ export function DemoShell() {
             agreements={agreements}
             onSelect={setSelectedAgreementId}
             onQuickView={setQuickViewAgreement}
+            selectedAgreementId={selectedAgreementId}
           />
 
           <aside className="detail-panel glass-card">
@@ -158,36 +215,39 @@ export function DemoShell() {
                     <strong>Rental term</strong>
                     <p>{selectedAgreement.duration}</p>
                   </div>
+                  <div>
+                    <strong>Current status</strong>
+                    <p>
+                      {selectedAgreement.status} in the mock escrow flow for a
+                      student rental or sublease.
+                    </p>
+                  </div>
+                  <div>
+                    <strong>Scenario note</strong>
+                    <p>{selectedAgreement.notes}</p>
+                  </div>
                 </div>
 
                 <div className="action-column">
-                  <button
-                    className="action-button action-fund"
-                    type="button"
-                    onClick={() => updateAgreementStatus("Funded")}
-                  >
-                    Fund Deposit
-                  </button>
-                  <button
-                    className="action-button action-release"
-                    type="button"
-                    onClick={() => updateAgreementStatus("Completed")}
-                  >
-                    Release Deposit
-                  </button>
-                  <button
-                    className="action-button action-refund"
-                    type="button"
-                    onClick={() => updateAgreementStatus("Refunded")}
-                  >
-                    Refund Deposit
-                  </button>
+                  {Object.entries(actionConfig).map(([key, action]) => (
+                    <button
+                      key={key}
+                      className={`action-button ${action.className}`}
+                      type="button"
+                      disabled={!actionAvailability[key]}
+                      onClick={() => updateAgreementStatus(action.nextStatus)}
+                    >
+                      <span>{action.label}</span>
+                      <small>{action.helper}</small>
+                    </button>
+                  ))}
                   <button
                     className="action-button action-reset"
                     type="button"
                     onClick={resetDemo}
                   >
-                    Reset Demo
+                    <span>Reset Demo</span>
+                    <small>Restore the original classroom sample agreements.</small>
                   </button>
                 </div>
 
@@ -198,6 +258,14 @@ export function DemoShell() {
                     first. The landlord receives funds only after the agreed
                     outcome, while refund remains possible when the rental fails
                     or conditions are not met.
+                  </p>
+                </div>
+                <div className="note-box">
+                  <strong>Button logic</strong>
+                  <p className="support-text">
+                    Fund works from Draft or Awaiting Deposit. Release works
+                    only after funding. Refund works for awaiting, funded, or
+                    disputed agreements.
                   </p>
                 </div>
               </>
@@ -221,7 +289,7 @@ export function DemoShell() {
         </div>
       </section>
 
-      <AgreementDetailModal
+      <AgreementDetailDialog
         agreement={quickViewAgreement}
         onClose={() => setQuickViewAgreement(null)}
       />
