@@ -2,22 +2,21 @@ import { StatusBadge } from "@/components/status-badge";
 
 export function AgreementDashboard({
   agreements,
-  onSelect,
-  onQuickView,
+  onOpenAgreement,
   selectedAgreementId
 }) {
   return (
     <section className="card glass-card" id="dashboard">
       <div className="section-heading">
-        <h2>Agreement Dashboard</h2>
+        <h2>Escrow Dashboard</h2>
         <p>
-          Mock agreements show how a blockchain-based rental deposit escrow can
-          protect student rentals and subleases from draft to deposit outcome.
+          Track active deposit agreements across student housing, subleases,
+          cross-border move-ins, and lease handoffs.
         </p>
       </div>
       <div className="dashboard-grid">
         {agreements.length === 0 ? (
-          <p className="empty-state">No agreements yet. Create one to begin the demo.</p>
+          <p className="empty-state">No agreements yet. Create an escrow agreement to get started.</p>
         ) : (
           agreements.map((agreement) => (
             <article
@@ -31,9 +30,9 @@ export function AgreementDashboard({
                 <button
                   className="link-button"
                   type="button"
-                  onClick={() => onQuickView(agreement)}
+                  onClick={() => onOpenAgreement(agreement.id)}
                 >
-                  Quick View
+                  Preview
                 </button>
               </div>
               <h3>{agreement.title}</h3>
@@ -47,14 +46,11 @@ export function AgreementDashboard({
               <div className="agreement-footer">
                 <span className="support-text">{agreement.scenario}</span>
                 <button
-                  className="secondary-button"
+                  className="secondary-button agreement-open-button"
                   type="button"
-                  onClick={() => {
-                    onSelect(agreement.id);
-                    onQuickView(null);
-                  }}
+                  onClick={() => onOpenAgreement(agreement.id)}
                 >
-                  Open Details
+                  Open Agreement
                 </button>
               </div>
             </article>

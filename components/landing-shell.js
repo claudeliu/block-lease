@@ -1,13 +1,20 @@
 "use client";
 
-import Link from "next/link";
 import { EscrowFlowClean } from "@/components/escrow-flow-clean";
 import { FeatureCards } from "@/components/feature-cards";
 import { LandingHero } from "@/components/landing-hero";
 import { MockWalletControl, useMockWallet } from "@/components/mock-wallet-control";
+import { ScenarioCards } from "@/components/scenario-cards";
+import { ToastViewport, useToastQueue } from "@/components/toast-viewport";
 
 export function LandingShell() {
-  const { connected, ready, toggleWallet } = useMockWallet();
+  const { address, connected, ready, toggleWallet } = useMockWallet();
+  const { dismissToast, pushToast, toasts } = useToastQueue();
+
+  function handleWalletToggle() {
+    toggleWallet();
+    pushToast(connected ? "Wallet disconnected" : "Wallet connected");
+  }
 
   return (
     <main className="page-shell landing-shell">
@@ -16,38 +23,23 @@ export function LandingShell() {
           <div className="brand-mark">BL</div>
           <div className="brand-copy">
             <strong>Block Lease</strong>
-            <p>Blockchain rental deposit escrow for student rentals and subleases</p>
+            <p>Rental deposit escrow for student housing, subleases, and cross-border move-ins</p>
           </div>
         </div>
         <MockWalletControl
+          address={address}
           connected={connected}
           ready={ready}
-          onToggle={toggleWallet}
+          onToggle={handleWalletToggle}
         />
       </header>
 
       <LandingHero />
 
-      <div className="landing-actions-bar glass-card">
-        <div>
-          <strong>Presentation flow</strong>
-          <p className="support-text">
-            Start with the concept here, then move into the demo workspace for
-            agreement creation and escrow actions.
-          </p>
-        </div>
-        <div className="hero-actions">
-          <Link className="primary-button" href="/demo#create-agreement">
-            Create Demo Agreement
-          </Link>
-          <Link className="secondary-button" href="/demo#dashboard">
-            View Sample Dashboard
-          </Link>
-        </div>
-      </div>
-
       <FeatureCards />
+      <ScenarioCards />
       <EscrowFlowClean />
+      <ToastViewport toasts={toasts} onDismiss={dismissToast} />
     </main>
   );
 }

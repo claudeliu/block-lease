@@ -2,7 +2,7 @@ import "./globals.css";
 
 export const metadata = {
   title: "Block Lease",
-  description: "Demo for a blockchain-based rental deposit escrow platform."
+  description: "Rental deposit escrow for student housing, subleases, lease takeovers, and cross-border move-ins."
 };
 
 export default function RootLayout({ children }) {

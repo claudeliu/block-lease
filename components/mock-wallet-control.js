@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 const storageKey = "blocklease-wallet-connected";
+const walletAddress = "0x71...2A9F";
 
 export function useMockWallet() {
   const [connected, setConnected] = useState(false);
@@ -23,6 +24,7 @@ export function useMockWallet() {
   }
 
   return {
+    address: walletAddress,
     connected,
     ready,
     toggleWallet
@@ -31,11 +33,13 @@ export function useMockWallet() {
 
 export function MockWalletControl({
   compact = false,
+  address: addressProp,
   connected: connectedProp,
   ready: readyProp,
   onToggle
 }) {
   const wallet = useMockWallet();
+  const address = addressProp ?? wallet.address;
   const connected = connectedProp ?? wallet.connected;
   const ready = readyProp ?? wallet.ready;
   const toggleWallet = onToggle ?? wallet.toggleWallet;
@@ -50,7 +54,7 @@ export function MockWalletControl({
       aria-pressed={connected}
     >
       <span className="wallet-dot" />
-      <span>{ready ? (connected ? "Wallet Connected" : "Connect Wallet") : "Loading Wallet"}</span>
+      <span>{ready ? (connected ? address : "Connect Wallet") : "Loading Wallet"}</span>
     </button>
   );
 }

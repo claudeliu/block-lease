@@ -4,53 +4,42 @@ export function LandingHero() {
   return (
     <section className="hero-layout">
       <div className="glass-card hero-card">
-        <p className="eyebrow">Classroom demo</p>
+        <p className="eyebrow">Rental deposit escrow</p>
         <div className="hero-copy-block">
-          <h1>Secure rental deposit escrow for student rentals and subleases.</h1>
+          <h1>Rental deposit escrow built for student housing.</h1>
           <p className="hero-description">
-            This demo shows how renters send a security deposit into escrow
-            instead of paying a landlord or sublessor directly. It is designed
-            for student rentals, campus subleases, and international students
-            dealing with low-trust rental situations.
-          </p>
-          <p className="hero-description">
-            In simple terms, a stablecoin deposit stays protected in escrow
-            until the rental is completed, refunded, or released. That makes the
-            concept easier to explain in stranger-to-stranger rental scenarios.
+            Block Lease gives renters, landlords, and student sublessors a
+            neutral way to secure deposits before move-in. It reduces trust
+            friction for cross-border rentals, subleases, lease takeovers, and
+            remote bookings by holding funds until agreed conditions are met.
           </p>
         </div>
         <div className="hero-actions">
           <Link className="primary-button" href="/demo#create-agreement">
-            Create Demo Agreement
+            Start Escrow
           </Link>
           <Link className="secondary-button" href="/demo#dashboard">
-            View Sample Dashboard
+            View Dashboard
           </Link>
         </div>
       </div>
       <aside className="glass-card side-panel">
         <div className="mini-stat">
-          <strong>Escrow first</strong>
+          <strong>Cross-border ready</strong>
           <span className="support-text">
-            The renter sends the deposit to escrow first, not directly to the landlord.
+            Create a stronger commitment path when renters arrive without local banking history.
           </span>
         </div>
         <div className="mini-stat">
-          <strong>Student-focused</strong>
+          <strong>Built for subleases</strong>
           <span className="support-text">
-            Useful for student leases, short subleases, and international arrivals.
+            Replace risky direct transfers with escrow for student-to-student housing deals.
           </span>
         </div>
         <div className="mini-stat">
-          <strong>Low-trust protection</strong>
+          <strong>Release or refund logic</strong>
           <span className="support-text">
-            Helps explain why escrow matters when two parties do not know each other yet.
-          </span>
-        </div>
-        <div className="mini-stat">
-          <strong>Mock product flow</strong>
-          <span className="support-text">
-            Connect a mock wallet, open the workspace, and walk through funding, release, and refund.
+            Hold the deposit until move-in, release, or refund conditions are clear.
           </span>
         </div>
       </aside>

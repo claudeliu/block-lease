@@ -1,18 +1,18 @@
 const features = [
   {
-    title: "Escrow Instead of Direct Payment",
+    title: "Hold the Deposit in Escrow",
     description:
-      "The renter sends the deposit into escrow first, so funds are not handed directly to a stranger."
+      "Keep funds in a neutral escrow flow instead of sending them directly to a landlord or sublessor."
   },
   {
-    title: "Built for Student Rentals",
+    title: "Reduce Trust Friction",
     description:
-      "Designed for subleases, semester housing, and international student moves where trust is limited."
+      "Give both sides a clearer commitment process when timing, identity, and payment proof create hesitation."
   },
   {
-    title: "Stablecoin-Based Protection",
+    title: "Built for Student Housing",
     description:
-      "The demo explains deposit protection with stablecoins in simple language, without real blockchain setup."
+      "Designed for subleases, lease takeovers, remote bookings, and cross-border rentals, with blockchain-based escrow and stablecoin settlement under the hood."
   }
 ];
 
@@ -20,10 +20,10 @@ export function FeatureCards() {
   return (
     <section className="feature-section">
       <div className="section-heading">
-        <h2>Why This Demo Exists</h2>
+        <h2>Why Block Lease</h2>
         <p>
-          A short, presentation-friendly explanation of why blockchain escrow is
-          useful for student rental deposits.
+          A better way to move from interest to commitment when student housing
+          decisions depend on trust, timing, and payment confidence.
         </p>
       </div>
       <div className="feature-grid">

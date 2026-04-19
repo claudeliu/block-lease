@@ -1,41 +1,47 @@
 export const mockAgreements = [
   {
     id: "AGR-101",
-    title: "Boston Summer Sublease",
+    title: "Back Bay Summer Sublease",
     renter: "Mia Chen",
     landlord: "Alex Rivera",
     property: "Fenway studio near campus",
     deposit: 850,
     currency: "USDC",
     duration: "May 20 - Aug 20",
-    scenario: "Student summer sublease",
+    scenario: "Sublease between students",
     status: "Awaiting Deposit",
-    notes: "Ideal low-trust case where the renter and sublessor met through a student housing group."
+    notes: "A summer sublease where both sides want commitment before any direct transfer is made.",
+    createdAt: "Apr 4, 2026",
+    moveInDate: "May 20, 2026"
   },
   {
     id: "AGR-102",
-    title: "Exchange Student Lease",
+    title: "Cross-Border Semester Move-In",
     renter: "Luca Meyer",
     landlord: "Harbor Housing",
     property: "Shared apartment in downtown Toronto",
     deposit: 1200,
     currency: "USDC",
     duration: "Sep 1 - Dec 20",
-    scenario: "International student arrival",
+    scenario: "Cross-border move-in",
     status: "Funded",
-    notes: "Deposit is already locked in escrow while the renter completes arrival paperwork."
+    notes: "Funds are already in escrow while the renter finalizes arrival timing and move-in details.",
+    createdAt: "Apr 8, 2026",
+    moveInDate: "Sep 1, 2026"
   },
   {
     id: "AGR-103",
-    title: "Campus Apartment Renewal",
+    title: "Campus Lease Takeover",
     renter: "Nina Patel",
     landlord: "Jordan Lee",
     property: "2-bedroom near engineering campus",
     deposit: 950,
     currency: "USDC",
     duration: "Jan 10 - May 15",
-    scenario: "Trusted release after move-out",
+    scenario: "Lease takeover",
     status: "Completed",
-    notes: "Demo case showing a successful lease end where funds are released to the landlord."
+    notes: "A completed handoff where the deposit was released after the transition terms were satisfied.",
+    createdAt: "Mar 28, 2026",
+    moveInDate: "Jan 10, 2026"
   }
 ];
