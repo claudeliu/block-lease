@@ -10,8 +10,9 @@ export function AgreementDashboard({
       <div className="section-heading">
         <h2>Escrow Dashboard</h2>
         <p>
-          Track active deposit agreements across student housing, subleases,
-          cross-border move-ins, and lease handoffs.
+          Track funded deposits, active reviews, and resolved escrow agreements
+          across student housing, subleases, cross-border move-ins, and lease
+          handoffs.
         </p>
       </div>
       <div className="dashboard-grid">

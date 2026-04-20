@@ -94,7 +94,7 @@ export function CreateAgreementForm({ errors, form, onChange, onSubmit }) {
           </button>
           <span className="support-text">
             New agreements appear instantly in the workspace and can move
-            through funding, release, or refund.
+            through funding, review, release, or refund.
           </span>
         </div>
       </form>
